@@ -29,7 +29,9 @@ fn main() {
     //      bindings file for the specific target.
     let tgt = env::var("TARGET").unwrap();
     println!("debug: Building for target: '{}'", tgt);
+
     let library_name = env::var("LIBIIO_LIBRARY_NAME").unwrap_or("iio".into());
+    println!("debug: Building with name: '{}'", library_name);
 
     #[cfg(feature = "libiio_v0_24")]
     println!("debug: Using bindings for libiio v0.24");
