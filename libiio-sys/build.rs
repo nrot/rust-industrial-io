@@ -13,8 +13,8 @@
 use std::env;
 
 #[cfg(target_os = "macos")]
-fn config_macos(library_name: &str) {
-    println!("cargo:rustc-link-lib=framework={}", library_name);
+fn config_macos() {
+    println!("cargo:rustc-link-lib=framework=iio");
 
     if cfg!(target_arch = "x86_64") {
         println!(r"cargo:rustc-link-search=framework=/usr/local/Frameworks/");
@@ -33,6 +33,11 @@ fn main() {
     let library_name = env::var("LIBIIO_LIBRARY_NAME").unwrap_or("iio".into());
     println!("debug: Building with name: '{}'", library_name);
 
+    if let Ok(library_path) = env::var("LIBIIO_LIBRARY_PATH"){
+        println!("debug: Building with path: '{}'", library_path);
+        println!(r"cargo:rustc-link-search={}", library_path);
+    }
+
     #[cfg(feature = "libiio_v0_24")]
     println!("debug: Using bindings for libiio v0.24");
 
@@ -43,5 +48,5 @@ fn main() {
     println!("cargo:rustc-link-lib={}", library_name);
 
     #[cfg(target_os = "macos")]
-    config_macos(&library_name);
+    config_macos();
 }
