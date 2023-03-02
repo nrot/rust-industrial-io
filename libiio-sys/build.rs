@@ -45,6 +45,10 @@ fn main() {
         }
     }
 
+    if env::var("LIBIIO_LINK_PTHREAD").is_ok() {
+        println!("cargo:rustc-link-arg=-pthread");
+    }
+
     #[cfg(feature = "libiio_v0_24")]
     println!("debug: Using bindings for libiio v0.24");
 
