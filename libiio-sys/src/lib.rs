@@ -18,6 +18,8 @@
 //! * **libiio_v0_21** Bindings for libiio v0.21
 //! * **libiio_v0_19** Bindings for libiio v0.19
 //!
+#![crate_type = "dylib"]
+
 
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
