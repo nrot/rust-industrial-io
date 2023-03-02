@@ -38,6 +38,13 @@ fn main() {
         println!(r"cargo:rustc-link-search={}", library_path);
     }
 
+    if let Ok(raw) = env::var("LIBIIO_EXTEND_LINK_LIBS"){
+        let extend_link_libs = raw.split(",");
+        for lib in extend_link_libs{
+            println!("cargo:rustc-link-lib={}", lib);
+        }
+    }
+
     #[cfg(feature = "libiio_v0_24")]
     println!("debug: Using bindings for libiio v0.24");
 
